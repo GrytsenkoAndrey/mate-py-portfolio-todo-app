@@ -11,37 +11,37 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name="Tag",
+            name='Tag',
             fields=[
                 (
-                    "id",
+                    'id',
                     models.BigAutoField(
                         auto_created=True,
                         primary_key=True,
                         serialize=False,
-                        verbose_name="ID",
+                        verbose_name='ID',
                     ),
                 ),
-                ("name", models.CharField(max_length=255)),
+                ('name', models.CharField(max_length=255)),
             ],
         ),
         migrations.CreateModel(
-            name="Task",
+            name='Task',
             fields=[
                 (
-                    "id",
+                    'id',
                     models.BigAutoField(
                         auto_created=True,
                         primary_key=True,
                         serialize=False,
-                        verbose_name="ID",
+                        verbose_name='ID',
                     ),
                 ),
-                ("content", models.TextField(blank=True)),
-                ("created_at", models.DateTimeField(auto_now_add=True)),
-                ("deadline", models.DateTimeField(blank=True, null=True)),
-                ("is_completed", models.BooleanField(default=False)),
-                ("tags", models.ManyToManyField(blank=True, to="todo.tag")),
+                ('content', models.TextField(blank=True)),
+                ('created_at', models.DateTimeField(auto_now_add=True)),
+                ('deadline', models.DateTimeField(blank=True, null=True)),
+                ('is_completed', models.BooleanField(default=False)),
+                ('tags', models.ManyToManyField(blank=True, to='todo.tag')),
             ],
         ),
     ]

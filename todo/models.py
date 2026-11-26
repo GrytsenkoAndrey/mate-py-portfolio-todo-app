@@ -1,6 +1,8 @@
 from django.db import models
 
 # Create your models here.
+
+
 class Tag(models.Model):
     name = models.CharField(max_length=255)
 
@@ -16,5 +18,5 @@ class Task(models.Model):
     tags = models.ManyToManyField(
         Tag,
         blank=True,
-        related_name="tasks"
+        related_name='tasks'
     )
