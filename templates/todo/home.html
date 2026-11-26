@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="page-heading">
+  <h1>TODO list</h1>
+  <a href="#" title="Add task" class="btn btn-primary">
+    <i class="bi bi-plus-lg" aria-hidden="true"></i>
+    Add task
+  </a>
+</div>
+
+<div class="task-list">
+  {% for task in task_list %}
+    <article class="task-row">
+      <div class="task-details">
+        <div class="task-title-line">
+          <h2 class="task-content">{{ task.content|default:"(No description)" }}</h2>
+          <span class="task-status {% if task.is_completed %}status-done{% else %}status-not-done{% endif %}">
+            {% if task.is_completed %}Done{% else %}Not done{% endif %}
+          </span>
+        </div>
+
+        <div class="task-metadata">
+          <span>Created: {{ task.created_at|date:"M d, Y" }}</span>
+          {% if task.deadline %}
+            <span class="task-deadline">Deadline: {{ task.deadline|date:"M d, Y" }}</span>
+          {% endif %}
+        </div>
+
+        {% if task.tags.all %}
+          <ul class="task-tags">
+            {% for tag in task.tags.all %}
+              <li>{{ tag.name }}</li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+
+        <div class="task-links">
+          <a href="#">Update</a>
+          <a href="#">Delete</a>
+        </div>
+      </div>
+
+      <a href="#" class="btn task-action {% if task.is_completed %}btn-outline-secondary{% else %}btn-success{% endif %}">
+        {% if task.is_completed %}Undo{% else %}Complete{% endif %}
+      </a>
+    </article>
+  {% endfor %}
+</div>
+
+{% include "includes/pagination.html" %}
+{% endblock %}
