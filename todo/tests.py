@@ -25,3 +25,15 @@ class TagListViewTests(TestCase):
 
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "Work")
+
+    def test_task_toggle(self):
+        task = Task.objects.create(content="Prepare report")
+        task.tags.add(Tag.objects.create(name="Work"))
+
+        response = self.client.post(
+            reverse("todo:task-toggle", args=[task.id]), HTTP_HOST="localhost"
+        )
+
+        self.assertEqual(response.status_code, 302)
+        task.refresh_from_db()
+        self.assertTrue(task.is_completed)

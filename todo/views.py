@@ -1,3 +1,4 @@
+from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.views import generic
 from django.db.models import Prefetch
@@ -7,12 +8,18 @@ from .forms import TagForm
 
 
 # Create your views here.
+def toggle_task(request, pk):
+    task = get_object_or_404(Task, pk=pk)
+    task.is_completed = not task.is_completed
+    task.save()
+
+    return redirect("todo:index")
+
+
 class TaskListView(generic.ListView):
     model = Task
-    queryset = (
-        Task.objects.prefetch_related(
-            Prefetch("tags")
-        ).order_by("is_completed", "deadline")
+    queryset = Task.objects.prefetch_related(Prefetch("tags")).order_by(
+        "is_completed", "deadline"
     )
     template_name = "todo/home.html"
     paginate_by = 10

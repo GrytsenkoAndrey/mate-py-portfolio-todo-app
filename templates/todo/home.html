@@ -41,9 +41,12 @@
         </div>
       </div>
 
-      <a href="#" class="btn task-action {% if task.is_completed %}btn-outline-secondary{% else %}btn-success{% endif %}">
-        {% if task.is_completed %}Undo{% else %}Complete{% endif %}
-      </a>
+      <form action="{% url "todo:task-toggle" pk=task.id %}" method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn task-action {% if task.is_completed %}btn-outline-secondary{% else %}btn-success{% endif %}">
+          {% if task.is_completed %}Undo{% else %}Complete{% endif %}
+        </button>
+      </form>
     </article>
   {% endfor %}
 </div>
