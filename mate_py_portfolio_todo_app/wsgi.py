@@ -11,6 +11,8 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'mate_py_portfolio_todo_app.settings')
+os.environ.setdefault(
+    'DJANGO_SETTINGS_MODULE', 'mate_py_portfolio_todo_app.settings'
+)
 
 application = get_wsgi_application()

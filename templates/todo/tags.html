@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="page-heading mb-0 pb-2 border-bottom">
+    <h1>Tags</h1>
+    <a href="{% url 'todo:tag-create' %}" title="Add tag" class="btn btn-primary">Add</a>
+  </div>
+
+  <table class="table align-middle">
+    <thead>
+      <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Update</th>
+        <th scope="col">Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for tag in object_list %}
+        <tr>
+          <td>{{ tag.name }}</td>
+          <td>
+            <a href="{% url 'todo:tag-update' pk=tag.id %}" class="btn btn-secondary">Update</a>
+          </td>
+          <td>
+            <a href="{% url 'todo:tag-delete' pk=tag.id %}" class="btn btn-danger">Delete</a>
+          </td>
+        </tr>
+      {% empty %}
+        <tr>
+          <td colspan="3" class="text-muted">There are no tags yet.</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  {% include "includes/pagination.html" %}
+{% endblock %}
